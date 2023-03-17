@@ -98,6 +98,8 @@
 #define ADC_APP_SID_MASK			0xf
 #define ADC7_CONV_TIMEOUT		msecs_to_jiffies(10)
 
+#define GET_DTSI_NODE_FAILED	-1
+
 enum adc_cal_method {
 	ADC_NO_CAL = 0,
 	ADC_RATIOMETRIC_CAL,
@@ -142,6 +144,11 @@ struct adc_channel_prop {
 	unsigned int			lut_index;
 	enum vadc_scale_fn_type		scale_fn_type;
 	const char			*datasheet_name;
+
+#ifdef OPLUS_FEATURE_CHG_BASIC
+		int 		cust_type;
+		int 		cust_scale_fn_type;
+#endif
 };
 
 /**
@@ -1495,6 +1502,17 @@ static int adc_get_dt_channel_data(struct adc_chip *adc,
 	else
 		prop->cal_method = ADC_ABSOLUTE_CAL;
 
+#ifdef OPLUS_FEATURE_CHG_BASIC
+		if (!of_property_read_u32(node, "oplus,cust_type", &value))
+			prop->cust_type = value;
+		else
+			prop->cust_type = GET_DTSI_NODE_FAILED;
+
+		if (!of_property_read_u32(node, "oplus,cust_scale_fn_type", &value))
+			prop->cust_scale_fn_type = value;
+		else
+			prop->cust_scale_fn_type = GET_DTSI_NODE_FAILED;
+#endif
 	/*
 	 * Default to using timer calibration. Using a fresh calibration value
 	 * for every conversion will increase the overall time for a request.
@@ -1671,6 +1689,15 @@ static int adc_get_dt_data(struct adc_chip *adc, struct device_node *node)
 		iio_chan->info_mask_separate = adc_chan->info_mask;
 		iio_chan->type = adc_chan->type;
 		iio_chan->address = index;
+
+#ifdef OPLUS_FEATURE_CHG_BASIC
+		if(prop.cust_type != -1 && prop.cust_scale_fn_type != -1) {
+			pr_err("%s: force to cust_type %d, cust_scale_fn_type %d\n", prop.datasheet_name, prop.cust_type, prop.cust_scale_fn_type);
+			iio_chan->type = prop.cust_type;
+			iio_chan->info_mask_separate = BIT(IIO_CHAN_INFO_RAW) | BIT(IIO_CHAN_INFO_PROCESSED);
+			adc->chan_props[index].scale_fn_type = prop.cust_scale_fn_type;
+		}
+#endif
 		iio_chan++;
 		index++;
 	}

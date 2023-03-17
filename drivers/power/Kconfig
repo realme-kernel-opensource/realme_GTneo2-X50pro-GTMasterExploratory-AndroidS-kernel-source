@@ -15,6 +15,11 @@ config OPLUS_SM7250R_CHARGER
 	help
 	  Enables support for the oplus charging framework
 
+config OPLUS_CHARGER_OPTIGA
+        bool "OPLUS OPTIGA soc node"
+        help
+          Say Y to include support
+
 config OPLUS_SHORT_C_BATT_CHECK
 	tristate "OPLUS_SHORT_C_BATT CHECK SUPPORT"
 	default n

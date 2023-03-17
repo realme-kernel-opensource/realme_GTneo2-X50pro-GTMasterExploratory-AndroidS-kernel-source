@@ -15,7 +15,8 @@
 ### ------------------------------------------------------------------------------
 ##################################################################################
 
--include ./oplus_native_features.mk
+#-include ../../out/oplus_native_features.mk
+-include oplus_native_features.sh
 
 ###ifdef OPLUS_ARCH_INJECT
 OPLUS_CONNECTIVITY_NATIVE_FEATURE_SET :=
@@ -192,4 +193,8 @@ KBUILD_CFLAGS += -DOPLUS_FEATURE_AOD_RAMLESS
 KBUILD_CPPFLAGS += -DOPLUS_FEATURE_AOD_RAMLESS
 CFLAGS_KERNEL += -DOPLUS_FEATURE_AOD_RAMLESS
 CFLAGS_MODULE += -DOPLUS_FEATURE_AOD_RAMLESS
+endif
+
+ifeq ($(OPLUS_FEATURE_OP_SPECIFIC_AUDIO_KERNEL),yes)
+KBUILD_CFLAGS += -DOPLUS_FEATURE_OP_SPECIFIC_AUDIO_KERNEL
 endif

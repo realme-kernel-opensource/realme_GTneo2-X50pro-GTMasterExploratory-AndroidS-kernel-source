@@ -207,6 +207,7 @@ struct qpnp_qg {
 	struct iio_channel	*batt_id_chan;
 #ifdef OPLUS_FEATURE_CHG_BASIC
 	struct iio_channel	*parallel_isense_chan;
+	bool                    qpnp_qg_feture;
 #endif
 	/* soc params */
 	int			catch_up_soc;

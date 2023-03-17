@@ -156,6 +156,20 @@ int tp_util_get_vendor(struct hw_resource *hw_res, struct panel_info *panel_data
 		}
 	}
 
+	if (prj_id == 0x2065C) {
+	    snprintf(panel_data->fw_name, MAX_FW_NAME_LENGTH,
+            "tp/%s/FW_%s_%s.img",
+            "2065C", panel_data->chip_name, vendor);
+
+		if (panel_data->test_limit_name) {
+			snprintf(panel_data->test_limit_name, MAX_LIMIT_DATA_LENGTH,
+				"tp/%s/LIMIT_%s_%s.img",
+				"2065C", panel_data->chip_name, vendor);
+		}
+		memcpy(panel_data->manufacture_info.version, "focalt_0000", 11);
+		panel_data->manufacture_info.fw_path = panel_data->fw_name;
+	}
+
 	pr_info("[TP]vendor:%s fw:%s limit:%s\n",
 		vendor,
 		panel_data->fw_name,

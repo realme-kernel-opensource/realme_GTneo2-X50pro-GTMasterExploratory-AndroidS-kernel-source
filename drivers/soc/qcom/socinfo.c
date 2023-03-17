@@ -1752,7 +1752,8 @@ int __init socinfo_init(void)
 			|| (get_project() == 19335) || (get_project() == 20801)
 			|| (get_project() == 20804))
 			cpu_of_id[socinfo->v0_1.id].soc_id_string = real_cpu_id;
-		else if((get_project() == 20057) || (get_project() == 20058))
+		else if((get_project() == 20057) || (get_project() == 20058
+			|| get_project() == 20813) || get_project() == 20814)
 			cpu_of_id[socinfo->v0_1.id].soc_id_string = real_cpu_id_20057_20058;
 		else if((get_project() == 20669) || (get_project() == 20750) || (get_project() == 20751))
 			cpu_of_id[socinfo->v0_1.id].soc_id_string = real_cpu_id_20669_20750_20751;
@@ -1762,7 +1763,8 @@ int __init socinfo_init(void)
 		cpu_of_id[socinfo->v0_1.id].soc_id_string = fake_cpu_id;
 #endif
 	} else {
-		if((get_project() == 20057) || (get_project() == 20058))
+		if((get_project() == 20057) || (get_project() == 20058
+			|| get_project() == 20813) || get_project() == 20814)
 			cpu_of_id[socinfo->v0_1.id].soc_id_string = real_cpu_id_20057_20058;
 		else if((get_project() == 20669) || (get_project() == 20750) || (get_project() == 20751))
 			cpu_of_id[socinfo->v0_1.id].soc_id_string = real_cpu_id_20669_20750_20751;

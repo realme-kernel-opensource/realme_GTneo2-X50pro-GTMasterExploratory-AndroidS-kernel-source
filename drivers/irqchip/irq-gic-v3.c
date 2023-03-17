@@ -413,12 +413,12 @@ static void gic_show_resume_irq(struct gic_chip_data *gic)
 		do {
 			int platform_id = get_cached_platform_id();
 			if (platform_id == KONA) {
-				if (irq >= 211 && irq <= 242) { /*pcie2 is modem*/
+				if (irq >= 154 && irq <= 185) { /*pcie2 is modem*/
 					name = IRQ_NAME_MODEM_QMI;
 					//#ifdef OPLUS_FEATURE_NWPOWER
 					oplus_match_modem_wakeup();
 					//#endif /* OPLUS_FEATURE_NWPOWER */
-				} else if (irq >= 142 && irq <= 173) {/*pcie0 is wlan*/
+				} else if (irq >= 85 && irq <= 116) {/*pcie0 is wlan*/
 					name = IRQ_NAME_WLAN_IPCC_DATA;
 					//#ifdef OPLUS_FEATURE_NWPOWER
 					oplus_match_wlan_wakeup();
